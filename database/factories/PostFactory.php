@@ -23,7 +23,7 @@ class PostFactory extends Factory
             'slug' => $this->faker->unique()->slug(),
             'excerpt' => $this->faker->paragraph(),
             'body' => $this->faker->paragraphs(5, true),
-            'image_path' => $this->faker->imageUrl(),
+            'image_path' => $this->faker->imageUrl('1920', '1080'),
             'status' => $this->faker->randomElement([
                 'draft',
                 'published',
