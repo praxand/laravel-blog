@@ -10,7 +10,9 @@
 </head>
 
 <body>
-    {{ $slot }}
+    <div class="p-5">
+        {{ $slot }}
+    </div>
 </body>
 
 </html>
