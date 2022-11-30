@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::factory(3)->create()->each(function ($user) {
-            Post::factory()->create([
+            Post::factory(5)->create([
                 'user_id' => $user->id,
             ])->each(function ($post) {
                 Category::factory(3)->create([
