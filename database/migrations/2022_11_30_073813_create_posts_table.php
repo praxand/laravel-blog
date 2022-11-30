@@ -26,7 +26,11 @@ return new class extends Migration
             $table->longtext('body');
             $table->string('image_path')
                 ->nullable();
-            $table->enum('status');
+            $table->enum('status', [
+                'draft',
+                'published',
+                'deleted',
+            ]);
             $table->timestamp('published_at')
                 ->nullable();
             $table->timestamps();
