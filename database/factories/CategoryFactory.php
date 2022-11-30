@@ -17,7 +17,9 @@ class CategoryFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'post_id' => Post::factory(),
+            'name' => $this->faker->unique()->word(),
+            'slug' => $this->faker->unique()->slug(),
         ];
     }
 }

@@ -17,7 +17,9 @@ class LikeFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'post_id' => Post::factory(),
+            'user_id' => User::factory(),
+            'liked' => $this->faker->boolean,
         ];
     }
 }
