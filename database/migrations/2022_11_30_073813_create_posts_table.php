@@ -22,7 +22,7 @@ return new class extends Migration
                 ->unique();
             $table->string('slug')
                 ->unique();
-            +$table->text('excerpt');
+            $table->text('excerpt');
             $table->longtext('body');
             $table->string('image_path')
                 ->nullable();
