@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container mx-auto px-5 lg:max-w-screen-sm mt-20">
+    <div class="container mx-auto px-5 lg:max-w-screen-sm">
         <h1 class="mb-5 text-2xl font-semibold">{{ $post->title }}</h1>
 
         <div class="flex items-center text-sm">
