@@ -15,24 +15,18 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
-                ->constrained()
-                ->cascadeOnDelete();
-            $table->string('title')
-                ->unique();
-            $table->string('slug')
-                ->unique();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('title')->unique();
+            $table->string('slug')->unique();
             $table->text('excerpt');
             $table->longtext('body');
-            $table->string('image_path')
-                ->nullable();
+            $table->string('image_path')->nullable();
             $table->enum('status', [
                 'draft',
                 'published',
                 'deleted',
             ]);
-            $table->timestamp('published_at')
-                ->nullable();
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });
     }
