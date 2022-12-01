@@ -10,9 +10,9 @@
 </head>
 
 <body>
-    <div class="p-5">
-        {{ $slot }}
-    </div>
+    {{ $slot }}
+
+    <x-footer />
 </body>
 
 </html>
