@@ -12,7 +12,7 @@
         </div>
 
         <div class="mt-5 leading-loose flex flex-col justify-center items-center">
-            <p><img src="{{ $post->image_path }}" alt="{{ $post->title }}"></p>
+            <p><img src="{{ $post->image_path }}" alt="{{ $post->image_path }}"></p>
             <p class="my-3 font-semibold">{{ $post->excerpt }}</p>
             <p>{{ $post->body }}</p>
         </div>
