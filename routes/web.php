@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RSSFeedController;
 use App\Http\Controllers\ProfileController;
@@ -20,9 +21,7 @@ Route::get('/', [PostController::class, 'index'])->name('posts.index');
 
 Route::get('feed', [RSSFeedController::class, 'index'])->name('feed.index');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'admin'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'admin'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
