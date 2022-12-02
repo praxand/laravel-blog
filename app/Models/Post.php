@@ -22,6 +22,7 @@ class Post extends Model
         'body',
         'image_path',
         'status',
+        'published_at',
     ];
 
     /**
