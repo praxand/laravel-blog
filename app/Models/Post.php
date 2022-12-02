@@ -11,6 +11,20 @@ class Post extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'title',
+        'slug',
+        'excerpt',
+        'body',
+        'image_path',
+        'status',
+    ];
+
+    /**
      * The attributes that should be mutated to dates.
      *
      * @var array
