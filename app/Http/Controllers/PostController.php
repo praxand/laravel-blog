@@ -23,7 +23,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         return view('posts.create');
     }
@@ -36,7 +36,29 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'slug' => 'required',
+            'excerpt' => 'required',
+            'body' => 'required',
+            'status' => 'required',
+        ]);
+
+        \Auth::user()->posts()->create([
+            'title' => $request->title,
+            'slug' => strtolower(str_replace(' ', '-', $request->slug)),
+            'excerpt' => $request->excerpt,
+            'body' => $request->body,
+            'image_path' => $request->file('image_path')->getClientOriginalName(),
+            'status' => $request->status,
+            'published_at' => now()->toDateTimeString(),
+        ]);
+
+        if($request->hasFile('image_path')){
+            $request->file('image_path')->storeAs('public/images', $request->file('image_path')->getClientOriginalName());
+        }
+
+        return redirect()->route('posts.index');
     }
 
     /**
