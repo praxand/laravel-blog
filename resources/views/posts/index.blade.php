@@ -3,7 +3,7 @@
         @foreach ($posts as $post)
         @if ($post->status == 'published')
         <a class="bg-white block border w-full mb-10 p-5 rounded" href="{{ $post->slug }}">
-            <img src="{{ $post->image_path }}" alt="{{ $post->image_path }}" class="w-full h-64 object-cover">
+            <img src="{{ asset('storage/images/' . $post->image_path) }}" alt="{{ $post->image_path }}" class="w-full h-64 object-cover">
 
             <div class="flex flex-col justify-between flex-1">
                 <h2 class="my-6 text-xl font-semibold">{{ $post->title }}</h2>

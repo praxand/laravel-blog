@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="container mx-auto px-5 lg:max-w-screen-sm">
+    <div class="py-12 px-6 container mx-auto lg:max-w-screen-sm">
         <h1 class="mb-5 text-2xl font-semibold">{{ $post->title }}</h1>
 
         <div class="flex items-center text-sm">
@@ -12,7 +12,7 @@
         </div>
 
         <div class="mt-5 leading-loose flex flex-col justify-center items-center">
-            <p><img src="{{ $post->image_path }}" alt="{{ $post->image_path }}"></p>
+            <p><img src="{{ asset('storage/images/' . $post->image_path) }}" alt="{{ $post->image_path }}"></p>
             <p class="my-3 font-semibold">{{ $post->excerpt }}</p>
             <p>{{ $post->body }}</p>
         </div>
@@ -32,19 +32,19 @@
                         </div>
                     </div>
 
-                    <span class="ml-auto">
+                    {{-- <span class="ml-auto">
                         <a href="#">
                             <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                                 Like
                             </button>
                         </a>
-                    </span>
+                    </span> --}}
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="border-t my-8">
+    {{-- <div class="border-t my-8">
         <div class="container mx-auto px-5 lg:max-w-screen-sm mt-14">
             <p>{{$post->comments->count()}} Comments</p>
             @foreach ($post->comments as $comment)
@@ -54,5 +54,5 @@
             </div>
             @endforeach
         </div>
-    </div>
+    </div> --}}
 </x-guest-layout>
