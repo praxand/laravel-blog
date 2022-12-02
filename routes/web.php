@@ -19,9 +19,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index'])->name('posts.index');
 
-Route::get('feed', [RSSFeedController::class, 'index'])->name('feed.index');
+Route::get('/feed', [RSSFeedController::class, 'index'])->name('feed.index');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'admin'])->name('dashboard');
+
+Route::middleware('admin')->group(function () {
+    Route::get('/create', [PostController::class, 'create'])->name('posts.create');
+    Route::post('/create', [PostController::class, 'store'])->name('posts.store');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
