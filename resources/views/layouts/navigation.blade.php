@@ -60,9 +60,11 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        @if (Auth::user()->is_admin)
                         <x-dropdown-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
                         </x-dropdown-link>
+                        @endif
 
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
