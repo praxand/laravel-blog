@@ -19,18 +19,19 @@
                     <x-nav-link :href="route('feed.index')" :active="request()->routeIs('feed.index')">
                         {{ __('RSS Feed') }}
                     </x-nav-link>
-                    @if (Route::has('login'))
+
+                    @if (Route::has('login') && Route::has('register'))
                     @auth
+                    @if (Auth::user()->admin)
+                    <x-nav-link :href="route('posts.create')" :active="request()->routeIs('posts.create')">
+                        {{ __('Create New Post') }}
+                    </x-nav-link>
+                    @endif
                     @else
                     <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                         {{ __('Login') }}
                     </x-nav-link>
-                    @endauth
-                    @endif
 
-                    @if (Route::has('register'))
-                    @auth
-                    @else
                     <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
                         {{ __('Register') }}
                     </x-nav-link>
