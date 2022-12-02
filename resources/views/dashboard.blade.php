@@ -28,6 +28,11 @@
                 <div class="bg-white overflow-hidden shadow-sm rounded-lg h-48">
                     <div class="p-6 text-gray-900">
                         Posts: {{ $posts->count() }}
+                        <p>
+                            @foreach ($posts as $post)
+                            <a href="{{ $post->slug }}" class="hover:underline">{{ $post->title }}</a>
+                            @endforeach
+                        </p>
                     </div>
                 </div>
             </div>
