@@ -1,4 +1,4 @@
-<x-layout>
+<x-guest-layout>
     <div class="container mx-auto px-5 lg:max-w-screen-sm">
         @foreach ($posts as $post)
         @if ($post->status == 'published')
@@ -20,4 +20,4 @@
         @endif
         @endforeach
     </div>
-</x-layout>
+</x-guest-layout>

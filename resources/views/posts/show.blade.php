@@ -1,4 +1,4 @@
-<x-layout>
+<x-guest-layout>
     <div class="container mx-auto px-5 lg:max-w-screen-sm">
         <h1 class="mb-5 text-2xl font-semibold">{{ $post->title }}</h1>
 
@@ -55,4 +55,4 @@
             @endforeach
         </div>
     </div>
-</x-layout>
+</x-guest-layout>
