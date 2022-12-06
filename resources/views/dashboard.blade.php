@@ -30,7 +30,7 @@
                         Posts: {{ $posts->count() }}
                         <p>
                             @foreach ($posts as $post)
-                            <a href="{{ $post->slug }}" class="hover:underline">{{ $post->title }}</a>
+                            <a href="{{ $post->slug }}" class="hover:underline">{{ $post->title }}</a>@if(!$loop->last),@endif
                             @endforeach
                         </p>
                     </div>
