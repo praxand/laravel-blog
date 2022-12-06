@@ -30,10 +30,18 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request)
     {
+       
         $request->user()->fill($request->validated());
 
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
+        }
+
+        $fileName = $request->file('image_path') ? $request->file('image_path')->getClientOriginalName() : "default.jpg";
+        $request->user()->image_path = $fileName;
+
+        if ($request->file('image_path')) {
+            $request->file('image_path')->storeAs('public/images/profile_pictures', $fileName);
         }
 
         $request->user()->save();
