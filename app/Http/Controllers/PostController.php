@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class PostController extends Controller
 {
@@ -41,24 +44,30 @@ class PostController extends Controller
             'slug' => 'required',
             'excerpt' => 'required',
             'body' => 'required',
+            'image_path' => 'image',
             'status' => 'required',
         ]);
 
-        \Auth::user()->posts()->create([
+        $fileName = $request->file('image_path') ? $request->file('image_path')->getClientOriginalName() : "default.jpg";
+
+        $request->merge([
+            'user_id' => Auth::user()->id,
             'title' => $request->title,
             'slug' => strtolower(str_replace(' ', '-', $request->slug)),
             'excerpt' => $request->excerpt,
             'body' => $request->body,
-            'image_path' => $request->file('image_path')->getClientOriginalName(),
+            'image_path' => $fileName,
             'status' => $request->status,
             'published_at' => now()->toDateTimeString(),
         ]);
 
-        if($request->hasFile('image_path')){
-            $request->file('image_path')->storeAs('public/images', $request->file('image_path')->getClientOriginalName());
+        Post::create($request->all());
+
+        if ($request->file('image_path')) {
+            $request->file('image_path')->storeAs('public/images/profile_pictures', $fileName);
         }
 
-        return redirect()->route('posts.index');
+        return Redirect::route('posts.index');
     }
 
     /**
