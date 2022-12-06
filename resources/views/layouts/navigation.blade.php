@@ -120,7 +120,7 @@
             @auth
             <div class="flex px-4">
                 <img src="{{ Storage::url('images/profile_pictures/' . Auth::user()->image_path ) }}"
-                    alt="Profile Picture" class="rounded-full object-cover shadow-2xl h-10 w-10 mr-3">
+                    alt="Profile Picture" class="rounded-full shadow-lg h-10 w-10 object-cover mr-2">
 
                 <div>
                     <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>

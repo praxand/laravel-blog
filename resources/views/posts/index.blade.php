@@ -10,8 +10,8 @@
                 <p class="mb-6 leading-loose">{{ $post->excerpt }}</p>
 
                 <div class="flex items-center text-sm">
-                    <img src="{{ $post->user->image_path }}" alt="{{ $post->user->name }}"
-                        class="w-10 h-10 rounded-full">
+                    <img src="{{ Storage::url('images/profile_pictures/' . $post->user->image_path ) }}" alt="{{ $post->user->name }}"
+                        class="rounded-full shadow-lg w-10 h-10">
                     <span class="ml-2">{{ $post->user->name }}</span>
                     <span class="ml-auto">{{ $post->published_at->toFormattedDateString() }}</span>
                 </div>
