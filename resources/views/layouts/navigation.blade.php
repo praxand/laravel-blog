@@ -47,6 +47,8 @@
                     <x-slot name="trigger">
                         <button
                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                            <img src="{{ Storage::url('images/profile_pictures/' . Auth::user()->image_path ) }}"
+                                alt="Profile Picture" class="rounded-full object-cover shadow-2xl h-10 w-10 mr-3">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ml-1">
@@ -116,9 +118,14 @@
         <!-- Responsive Settings Options -->
         <div class="pt-2 pb-1 border-t border-gray-200">
             @auth
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+            <div class="flex px-4">
+                <img src="{{ Storage::url('images/profile_pictures/' . Auth::user()->image_path ) }}"
+                    alt="Profile Picture" class="rounded-full object-cover shadow-2xl h-10 w-10 mr-3">
+
+                <div>
+                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                </div>
             </div>
             @endauth
 
