@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreatePostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -44,28 +44,23 @@ class PostController extends Controller
             'slug' => 'required',
             'excerpt' => 'required',
             'body' => 'required',
-            'image_path' => 'image',
+            'image_path' => 'image|mimes:png,jpg,jpeg,jfif,pjpeg,pjp',
             'status' => 'required',
         ]);
 
-        $fileName = $request->file('image_path') ? $request->file('image_path')->getClientOriginalName() : "default.jpg";
-
         $request->merge([
             'user_id' => Auth::user()->id,
-            'title' => $request->title,
             'slug' => strtolower(str_replace(' ', '-', $request->slug)),
-            'excerpt' => $request->excerpt,
-            'body' => $request->body,
-            'image_path' => $fileName,
-            'status' => $request->status,
             'published_at' => now()->toDateTimeString(),
         ]);
 
-        Post::create($request->all());
-
         if ($request->file('image_path')) {
-            $request->file('image_path')->storeAs('public/images/profile_pictures', $fileName);
+            $fileName = time() . '_' . strtolower($request->file('image_path')->getClientOriginalName());
+            $request->image_path = $fileName;
+            $request->file('image_path')->storeAs('public/images/posts', $fileName);
         }
+
+        Post::create($request->all());
 
         return Redirect::route('posts.index');
     }
@@ -113,6 +108,14 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = auth()->user()->posts()->findOrFail($id);
+
+        if ($post->image_path !== 'default.jpg') {
+            Storage::delete('public/images/posts/' . $post->image_path);
+        }
+
+        Post::destroy($id);
+
+        return Redirect::route('posts.index');
     }
 }
