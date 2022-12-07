@@ -6,6 +6,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -38,10 +39,17 @@ class ProfileController extends Controller
         }
 
         $fileName = $request->file('image_path') ? $request->file('image_path')->getClientOriginalName() : "default.jpg";
-        $request->user()->image_path = $fileName;
+        $request->user()->image_path = time() . '_' . strtolower($fileName);
 
         if ($request->file('image_path')) {
-            $request->file('image_path')->storeAs('public/images/profile_pictures', $fileName);
+            $request->file('image_path')->storeAs('public/images/profile_pictures', time() . '_' . strtolower($fileName));
+        }
+
+        if ($request->user()->isDirty('image_path')) {
+            $oldImage = $request->user()->getOriginal('image_path');
+            if ($oldImage != "default.jpg") {
+                Storage::delete('public/images/profile_pictures/' . $oldImage);
+            }
         }
 
         $request->user()->save();
@@ -70,6 +78,6 @@ class ProfileController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/');
+        return Redirect::to('posts.index');
     }
 }
