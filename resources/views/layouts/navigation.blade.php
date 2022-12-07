@@ -47,8 +47,11 @@
                     <x-slot name="trigger">
                         <button
                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                            <img src="{{ Storage::url('images/profile_pictures/' . Auth::user()->image_path ) }}"
-                                alt="Profile Picture" class="rounded-full object-cover shadow-2xl h-10 w-10 mr-3">
+                            <img src="@if(Storage::exists('public/images/profile_pictures/' . Auth::user()->image_path))
+                            {{ Storage::url('images/profile_pictures/' . Auth::user()->image_path) }}
+                            @else
+                            {{ Storage::url('images/profile_pictures/default.jpg') }}
+                            @endif" alt="Profile Picture" class="rounded-full object-cover shadow-2xl h-10 w-10 mr-3">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ml-1">
@@ -119,7 +122,7 @@
         <div class="pt-2 pb-1 border-t border-gray-200">
             @auth
             <div class="flex px-4">
-                <img src="{{ Storage::url('images/profile_pictures/' . Auth::user()->image_path ) }}"
+                <img src="{{ Storage::url('images/profile_pictures/' . Auth::user()->image_path ) || Storage::url('images/profile_pictures/default.jpg') }}"
                     alt="Profile Picture" class="rounded-full shadow-lg h-10 w-10 object-cover mr-2">
 
                 <div>
