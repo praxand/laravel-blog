@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div class="py-12 px-6 container mx-auto lg:max-w-screen-sm">
         @foreach ($posts as $post)
-        <a class="bg-white block border w-full mb-10 p-5 rounded" href="{{ $post->slug }}">
+        <a class="bg-white block border w-full mb-10 p-5 rounded" href="{{ route('posts.show', $post->slug) }}">
             <img src="@if ( $post->image_path !== null)
                 {{ Storage::url('images/posts/' . $post->image_path) }}
             @else

@@ -11,11 +11,13 @@
             @endforeach --}}
 
             <span class="ml-auto flex space-x-2">
+                @auth
                 <a href="#">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Like
                     </button>
                 </a>
+
 
                 @if (Auth::user()->admin)
                 <form action="{{ route('posts.delete', $post->id) }}" method="post">
@@ -27,6 +29,7 @@
                     </button>
                 </form>
                 @endif
+                @endauth
             </span>
         </div>
 
