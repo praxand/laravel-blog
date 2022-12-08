@@ -39,9 +39,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $slug = strtolower(str_replace(' ', '-', $request->slug));
+
+        $request->merge(['slug' => $slug]);
+
         $request->validate([
-            'title' => 'required',
-            'slug' => 'required',
+            'title' => 'required|unique:posts,title',
+            'slug' => 'required|unique:posts,slug',
             'excerpt' => 'required',
             'body' => 'required',
             'image_path' => 'image|mimes:png,jpg,jpeg,jfif,pjpeg,pjp',
@@ -57,7 +61,7 @@ class PostController extends Controller
         Post::create([
             'user_id' => Auth::user()->id,
             'title' => $request->title,
-            'slug' => strtolower(str_replace(' ', '-', $request->slug)),
+            'slug' => $slug,
             'excerpt' => $request->excerpt,
             'body' => $request->body,
             'image_path' => $request->image_path ?? 'default.jpg',
