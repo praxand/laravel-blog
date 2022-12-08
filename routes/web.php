@@ -21,11 +21,11 @@ Route::get('/', [PostController::class, 'index'])->name('posts.index');
 
 Route::get('/feed', [RSSFeedController::class, 'index'])->name('feed.index');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'admin'])->name('dashboard');
-
 Route::middleware('admin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/create', [PostController::class, 'store'])->name('posts.store');
+    Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.delete');
 });
 
 Route::middleware('auth')->group(function () {
@@ -37,4 +37,3 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/{slug}', [PostController::class, 'show'])->name('posts.show');
-Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.delete');
