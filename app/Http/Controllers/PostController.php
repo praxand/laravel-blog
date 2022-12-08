@@ -48,19 +48,22 @@ class PostController extends Controller
             'status' => 'required',
         ]);
 
-        $request->merge([
-            'user_id' => Auth::user()->id,
-            'slug' => strtolower(str_replace(' ', '-', $request->slug)),
-            'published_at' => now()->toDateTimeString(),
-        ]);
-
         if ($request->file('image_path')) {
             $fileName = time() . '_' . strtolower($request->file('image_path')->getClientOriginalName());
             $request->image_path = $fileName;
             $request->file('image_path')->storeAs('public/images/posts', $fileName);
         }
 
-        Post::create($request->all());
+        Post::create([
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'slug' => strtolower(str_replace(' ', '-', $request->slug)),
+            'excerpt' => $request->excerpt,
+            'body' => $request->body,
+            'image_path' => $request->image_path ?? 'default.jpg',
+            'status' => $request->status,
+            'published_at' => now()->toDateTimeString(),
+        ]);
 
         return Redirect::route('posts.index');
     }
