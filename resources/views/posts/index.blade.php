@@ -13,8 +13,11 @@
                 <p class="mb-6 leading-loose">{{ $post->excerpt }}</p>
 
                 <div class="flex items-center text-sm">
-                    <img src="{{ Storage::url('images/profile_pictures/' . $post->user->image_path ) }}" alt="{{ $post->user->name }}"
-                        class="rounded-full shadow-lg w-10 h-10">
+                    <img src="@if(Storage::exists('public/images/profile_pictures/' . $post->user->image_path))
+                        {{ Storage::url('images/profile_pictures/' . $post->user->image_path) }}
+                        @else
+                        {{ Storage::url('images/profile_pictures/default.jpg') }}
+                        @endif" alt="{{ $post->user->image_path }}" class="rounded-full shadow-lg w-10 h-10">
                     <span class="ml-2">{{ $post->user->name }}</span>
                     <span class="ml-auto">{{ $post->published_at->toFormattedDateString() }}</span>
                 </div>

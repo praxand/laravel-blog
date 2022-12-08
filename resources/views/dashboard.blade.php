@@ -7,7 +7,8 @@
                         Registered Users: {{ $users->count() }}
                         <p>
                             @foreach ($users as $user)
-                            {{ $user->name }} {{ $user->admin ? '(Admin)' : '' }}@if(!$loop->last),@endif
+                            <a href="{{ route('users.show', $user->id) }}" class="hover:underline">{{ $user->name }}
+                                {{ $user->admin ? '(Admin)' : '' }}</a>@if(!$loop->last),@endif
                             @endforeach
                         </p>
                     </div>
@@ -30,7 +31,8 @@
                         Posts: {{ $posts->count() }}
                         <p>
                             @foreach ($posts as $post)
-                            <a href="{{ $post->slug }}" class="hover:underline">{{ $post->title }}</a>@if(!$loop->last),@endif
+                            <a href="{{ $post->slug }}"
+                                class="hover:underline">{{ $post->title }}</a>@if(!$loop->last),@endif
                             @endforeach
                         </p>
                     </div>

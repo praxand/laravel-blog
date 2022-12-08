@@ -18,7 +18,6 @@
                     </button>
                 </a>
 
-
                 @if (Auth::user()->admin)
                 <form action="{{ route('posts.delete', $post->id) }}" method="post">
                     @csrf
@@ -43,16 +42,21 @@
             <p>{!! nl2br($post->body) !!}</p>
         </div>
 
-        <div class="mt-10 lg:flex items-center p-5 border rounded">
-            <div class="w-full lg:w-1/6 text-center lg:text-left">
-                <img src="{{ Storage::url('images/profile_pictures/' . $post->user->image_path) }}"
-                    alt="{{ $post->user->name }}" class="rounded-full w-32 lg:w-full">
+        <div class="mt-10 flex items-center p-5 border rounded">
+            <div class="w-1/6 text-left">
+                <img src="@if(Storage::exists('public/images/profile_pictures/' . $post->user->image_path))
+                    {{ Storage::url('images/profile_pictures/' . $post->user->image_path) }}
+                    @else
+                    {{ Storage::url('images/profile_pictures/default.jpg') }}
+                    @endif" alt="{{ $post->user->image_path }}" class="rounded-full shadow-lg w-32">
             </div>
-            <div class="lg:pl-5 leading-loose text-center lg:text-left w-full lg:w-5/6">
 
+            <div class="pl-5 leading-loose text-left w-5/6">
                 <div class="flex items-center text-sm">
                     <div>
-                        By <span class="font-bold">{{ $post->user->name }}</span>
+                        By <span class="font-bold">
+                            <a href="{{ route('users.show', $post->user->id) }}">{{ $post->user->name }}</a>
+                        </span>
                         <div class="text-sm">
                             <p>{{ $post->likes->count() }} Likes</p>
                         </div>
