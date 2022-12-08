@@ -80,7 +80,7 @@ class PostController extends Controller
      */
     public function show($slug)
     {
-        $post = Post::where('slug', $slug)->first();
+        $post = Post::where('slug', $slug)->firstOrFail();
         return view('posts.show', compact('post'));
     }
 
@@ -115,7 +115,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::find($id);
+        $post = Post::findOrFail($id);
 
         if ($post->image_path !== 'default.jpg') {
             Storage::delete('public/images/posts/' . $post->image_path);
