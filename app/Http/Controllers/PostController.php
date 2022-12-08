@@ -108,7 +108,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = auth()->user()->posts()->findOrFail($id);
+        $post = Post::find($id);
 
         if ($post->image_path !== 'default.jpg') {
             Storage::delete('public/images/posts/' . $post->image_path);
