@@ -23,6 +23,7 @@ Route::get('/feed', [RSSFeedController::class, 'index'])->name('feed.index');
 
 Route::middleware('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::get('/create', [PostController::class, 'create'])->name('posts.create');
     Route::post('/create', [PostController::class, 'store'])->name('posts.store');
     Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.delete');
