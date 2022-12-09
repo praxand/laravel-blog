@@ -24,5 +24,7 @@
             </div>
         </a>
         @endforeach
+
+        {{ $posts->onEachSide(0)->links() }}
     </div>
 </x-guest-layout>

@@ -22,11 +22,9 @@
 
                     @if (Route::has('login') && Route::has('register'))
                     @auth
-                    @if (Auth::user()->admin)
                     <x-nav-link :href="route('posts.create')" :active="request()->routeIs('posts.create')">
                         {{ __('Create New Post') }}
                     </x-nav-link>
-                    @endif
                     @else
                     <x-nav-link :href="route('login')" :active="request()->routeIs('login')">
                         {{ __('Login') }}

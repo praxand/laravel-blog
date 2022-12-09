@@ -17,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('status', 'published')->orderBy('published_at', 'desc')->get();
+        $posts = Post::where('status', 'published')->orderBy('published_at', 'desc')->paginate(5);
         return view('posts.index', compact('posts'));
     }
 
@@ -98,6 +98,11 @@ class PostController extends Controller
     public function edit($slug)
     {
         $post = Post::where('slug', $slug)->firstOrFail();
+
+        if (Auth::guest() || Auth::user()->id !== $post->user_id) {
+            abort(404);
+        }
+
         return view('posts.edit', compact('post'));
     }
 

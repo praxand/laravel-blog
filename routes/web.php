@@ -24,10 +24,6 @@ Route::get('/feed', [RSSFeedController::class, 'index'])->name('feed.index');
 
 Route::middleware('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    Route::get('/create', [PostController::class, 'create'])->name('posts.create');
-    Route::post('/create', [PostController::class, 'store'])->name('posts.store');
-    Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.delete');
 });
 
 Route::middleware('auth')->group(function () {
@@ -39,6 +35,10 @@ Route::middleware('auth')->group(function () {
 Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 
 require __DIR__.'/auth.php';
+
+Route::get('/create', [PostController::class, 'create'])->name('posts.create');
+Route::post('/create', [PostController::class, 'store'])->name('posts.store');
+Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.delete');
 
 Route::get('/{slug}', [PostController::class, 'show'])->name('posts.show');
 Route::get('/{slug}/edit', [PostController::class, 'edit'])->name('posts.edit');

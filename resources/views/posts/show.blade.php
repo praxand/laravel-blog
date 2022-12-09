@@ -24,9 +24,7 @@
                         Edit
                     </button>
                 </a>
-                @endif
 
-                @if (Auth::user()->admin)
                 <form action="{{ route('posts.delete', $post->id) }}" method="post">
                     @csrf
                     @method('delete')
