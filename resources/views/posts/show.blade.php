@@ -19,13 +19,11 @@
                 </a>
 
                 @if (Auth::user()->id === $post->user->id || Auth::user()->admin)
-                <form action="{{ route('posts.edit', $post->slug) }}" method="get">
-                    @csrf
-
+                <a href="{{ route('posts.edit', $post->slug) }}">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Edit
                     </button>
-                </form>
+                </a>
                 @endif
 
                 @if (Auth::user()->admin)
