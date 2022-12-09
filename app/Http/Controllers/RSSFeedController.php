@@ -8,10 +8,7 @@ class RSSFeedController extends Controller
 {
     public function index()
     {
-        $posts = Post::latest()->get();
-
-        return response()->view('feed.index', [
-            'posts' => $posts,
-        ])->header('Content-Type', 'text/xml');
+        $posts = Post::where('status', 'published')->orderBy('published_at', 'desc')->get();
+        return response()->view('feed.index', compact('posts'))->header('Content-Type', 'text/xml');
     }
 }

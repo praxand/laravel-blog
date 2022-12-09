@@ -6,7 +6,6 @@
         <link>https://127.0.0.1:8000</link>
 
         @foreach ($posts as $post)
-        @if ($post->status == 'published')
         <item>
             <title>
                 <![CDATA[ {{ $post->title }} ]]>
@@ -26,7 +25,6 @@
 
             <updated>{{ $post->updated_at->toRssString() }}</updated>
         </item>
-        @endif
         @endforeach
     </channel>
 </rss>
