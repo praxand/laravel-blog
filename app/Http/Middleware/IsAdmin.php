@@ -6,8 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class IsAdmin
-{
+class IsAdmin {
+
     /**
      * Handle an incoming request.
      *
@@ -15,12 +15,15 @@ class IsAdmin
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
-    {
+    public function handle(Request $request, Closure $next) {
+        if (Auth::guest()) {
+            return abort(404);
+        }
+
         if (Auth::user()->admin == 1) {
             return $next($request);
         }
 
-        return redirect()->route('posts.index');
+        return abort(404);
     }
 }

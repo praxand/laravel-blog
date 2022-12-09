@@ -28,6 +28,10 @@ class PostController extends Controller
      */
     public function create()
     {
+        if (Auth::guest()) {
+            abort(404);
+        }
+
         return view('posts.create');
     }
 
@@ -160,15 +164,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::findOrFail($slug);
 
         if ($post->image_path !== 'default.jpg') {
             Storage::delete('public/images/posts/' . $post->image_path);
         }
 
-        Post::destroy($id);
+        Post::destroy($slug);
 
         return Redirect::route('posts.index');
     }

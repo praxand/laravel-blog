@@ -10,6 +10,7 @@
             <h1 class="text-3xl font-bold mt-4">{{ $user->name }} {{ $user->admin ? '(Admin)' : '' }}</h1>
         </div>
 
+        @auth
         @if (Auth::user()->id === $user->id)
         <h1 class="text-2xl font-bold mt-4">Drafts:</h1>
 
@@ -38,5 +39,6 @@
         </a>
         @endforeach
         @endif
+        @endauth
     </div>
 </x-guest-layout>

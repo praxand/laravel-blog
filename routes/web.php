@@ -38,8 +38,8 @@ require __DIR__.'/auth.php';
 
 Route::get('/create', [PostController::class, 'create'])->name('posts.create');
 Route::post('/create', [PostController::class, 'store'])->name('posts.store');
-Route::delete('/{id}', [PostController::class, 'destroy'])->name('posts.delete');
 
 Route::get('/{slug}', [PostController::class, 'show'])->name('posts.show');
+Route::delete('/{slug}', [PostController::class, 'destroy'])->name('posts.delete');
 Route::get('/{slug}/edit', [PostController::class, 'edit'])->name('posts.edit');
 Route::patch('/{slug}/edit', [PostController::class, 'update'])->name('posts.update');
