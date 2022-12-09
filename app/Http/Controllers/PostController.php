@@ -81,6 +81,11 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::where('slug', $slug)->firstOrFail();
+
+        if ($post->status !== 'published' && (Auth::guest() || Auth::user()->id !== $post->user_id)) {
+            abort(404);
+        }
+
         return view('posts.show', compact('post'));
     }
 
