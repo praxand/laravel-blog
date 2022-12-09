@@ -41,3 +41,5 @@ Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
 require __DIR__.'/auth.php';
 
 Route::get('/{slug}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/{slug}/edit', [PostController::class, 'edit'])->name('posts.edit');
+Route::patch('/{slug}/edit', [PostController::class, 'update'])->name('posts.update');
