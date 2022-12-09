@@ -26,7 +26,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         return view('posts.create');
     }
@@ -87,24 +87,61 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        return view('posts.edit');
+        $post = Post::where('slug', $slug)->firstOrFail();
+        return view('posts.edit', compact('post'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        //
+        $post = Post::where('slug', $slug)->firstOrFail();
+
+        $slug = strtolower(str_replace(' ', '-', $request->slug));
+
+        $request->merge(['slug' => $slug]);
+
+        $request->validate([
+            'title' => 'required|unique:posts,title,' . $post->id,
+            'slug' => 'required|unique:posts,slug,' . $post->id,
+            'excerpt' => 'required',
+            'body' => 'required',
+            'image_path' => 'image|mimes:png,jpg,jpeg,jfif,pjpeg,pjp',
+            'status' => 'required',
+        ]);
+
+        if ($request->file('image_path')) {
+            if ($post->image_path !== 'default.jpg') {
+                Storage::delete('public/images/posts/' . $post->image_path);
+            }
+
+            $fileName = time() . '_' . strtolower($request->file('image_path')->getClientOriginalName());
+            $request->image_path = $fileName;
+            $request->file('image_path')->storeAs('public/images/posts', $fileName);
+        }
+
+        $post->update([
+            'user_id' => Auth::user()->id,
+            'title' => $request->title,
+            'slug' => $slug,
+            'excerpt' => $request->excerpt,
+            'body' => $request->body,
+            'image_path' => $request->image_path ?? $post->image_path,
+            'status' => $request->status,
+            'published_at' => now()->toDateTimeString(),
+        ]);
+
+        return Redirect::route('posts.index');
     }
 
     /**
