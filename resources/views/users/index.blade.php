@@ -10,8 +10,11 @@
             <h1 class="text-3xl font-bold mt-4">{{ $user->name }} {{ $user->admin ? '(Admin)' : '' }}</h1>
         </div>
 
+        @if (Auth::user()->id === $user->id)
+        <h1 class="text-2xl font-bold mt-4">Drafts:</h1>
+
         @foreach ($posts as $post)
-        <a class="bg-white block border w-full my-10 p-5 rounded" href="{{ route('posts.show', $post->slug) }}">
+        <a class="bg-white block border w-full mb-10 p-5 rounded" href="{{ route('posts.show', $post->slug) }}">
             <img src="@if ( $post->image_path !== null)
                 {{ Storage::url('images/posts/' . $post->image_path) }}
             @else
@@ -34,5 +37,6 @@
             </div>
         </a>
         @endforeach
+        @endif
     </div>
 </x-guest-layout>
