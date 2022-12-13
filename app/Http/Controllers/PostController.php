@@ -120,7 +120,7 @@ class PostController extends Controller
      */
     public function update(Request $request, $slug)
     {
-        $post = Post::findOrFail($slug);
+        $post = Post::where('slug', $slug)->firstOrFail();
 
         $slug = strtolower(str_replace(' ', '-', $request->slug));
 
