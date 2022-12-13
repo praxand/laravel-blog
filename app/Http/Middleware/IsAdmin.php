@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class IsAdmin {
 
@@ -24,6 +25,6 @@ class IsAdmin {
             return $next($request);
         }
 
-        return abort(404);
+        return Redirect::route('posts.index');
     }
 }
