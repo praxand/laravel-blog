@@ -49,7 +49,7 @@ class Post extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class)->orderByDesc('created_at');
     }
 
     public function likes()

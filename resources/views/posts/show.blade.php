@@ -85,15 +85,28 @@
         </div>
     </div>
 
-    {{-- <div class="border-t my-8">
-        <div class="container mx-auto px-5 lg:max-w-screen-sm mt-14">
+    <div class="border-t">
+        <div class="container mx-auto px-5 lg:max-w-screen-sm my-14">
             <p>{{$post->comments->count()}} Comments</p>
-    @foreach ($post->comments as $comment)
-    <div class="my-3">
-        <p class="text-md font-semibold">{{ $comment->user->name }}</p>
-        <p>{{ $comment->body }}</p>
+            @if (Auth::check())
+            <form action="{{ route('posts.comment', $post->slug) }}" method="post">
+                @csrf
+
+                <div>
+                    <x-text-input id="comment" name="comment" type="text" class="mt-1 block w-full" required
+                        autocomplete="off" placeholder="Add a comment" />
+                    <x-input-error class="mt-2" :messages="$errors->get('comment')" />
+                </div>
+            </form>
+            @endif
+
+            @foreach ($post->comments as $comment)
+            <div class="my-3">
+                <a href="{{ route('users.show', $comment->user->id) }}"
+                    class="text-md font-semibold">{{ $comment->user->name }}</a>
+                <p>{{ $comment->body }}</p>
+            </div>
+            @endforeach
+        </div>
     </div>
-    @endforeach
-    </div>
-    </div> --}}
 </x-guest-layout>
