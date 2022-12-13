@@ -40,6 +40,7 @@ Route::get('/create', [PostController::class, 'create'])->name('posts.create');
 Route::post('/create', [PostController::class, 'store'])->name('posts.store');
 
 Route::get('/{slug}', [PostController::class, 'show'])->name('posts.show');
+Route::post('/{slug}', [PostController::class, 'like'])->name('posts.like');
 Route::delete('/{slug}', [PostController::class, 'destroy'])->name('posts.delete');
 Route::get('/{slug}/edit', [PostController::class, 'edit'])->name('posts.edit');
 Route::patch('/{slug}/edit', [PostController::class, 'update'])->name('posts.update');
