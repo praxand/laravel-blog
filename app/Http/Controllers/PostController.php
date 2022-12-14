@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Comment;
-use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -177,36 +175,5 @@ class PostController extends Controller
         Post::destroy($slug);
 
         return Redirect::route('posts.index');
-    }
-
-    public function like($slug)
-    {
-        $post = Post::where('slug', $slug)->firstOrFail();
-
-        $like = Like::where('user_id', Auth::user()->id)->where('post_id', $post->id)->first();
-
-        if ($like) {
-            Like::destroy($like->id);
-        } else {
-            Like::create([
-                'user_id' => Auth::user()->id,
-                'post_id' => $post->id,
-            ]);
-        }
-
-        return Redirect::route('posts.show', $slug);
-    }
-
-    public function comment($slug)
-    {
-        $post = Post::where('slug', $slug)->firstOrFail();
-
-        Comment::create([
-            'user_id' => Auth::user()->id,
-            'post_id' => $post->id,
-            'body' => request('comment'),
-        ]);
-
-        return Redirect::route('posts.show', $slug);
     }
 }

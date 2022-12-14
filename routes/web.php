@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RSSFeedController;
 use App\Http\Controllers\ProfileController;
@@ -40,8 +42,8 @@ Route::get('/create', [PostController::class, 'create'])->name('posts.create');
 Route::post('/create', [PostController::class, 'store'])->name('posts.store');
 
 Route::get('/{slug}', [PostController::class, 'show'])->name('posts.show');
-Route::post('/{slug}', [PostController::class, 'like'])->name('posts.like');
+Route::post('/{slug}', [LikeController::class, 'index'])->name('posts.like');
 Route::delete('/{slug}', [PostController::class, 'destroy'])->name('posts.delete');
-Route::post('/{slug}/comment', [PostController::class, 'comment'])->name('posts.comment');
+Route::post('/{slug}/comment', [CommentController::class, 'index'])->name('posts.comment');
 Route::get('/{slug}/edit', [PostController::class, 'edit'])->name('posts.edit');
 Route::patch('/{slug}/edit', [PostController::class, 'update'])->name('posts.update');
